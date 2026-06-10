@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Supa Mail Tracker",
+  "version": "1.0",
+  "description": "Free Email Tracker!",
+  "permissions": [
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://mail.google.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_title": "Supa Mail Tracker"
+  }
+}

@@ -14,7 +14,7 @@ const spy = new MutationObserver((mutations) => {
                     if (!emailBody.querySelector('.supa-tracker-badge')) {
                         const emailToken = generateUniqueToken();
                         const badge = document.createElement('div');
-                        badge.className = 'supa-tracker-badge';
+                        badge.className = 'tick-tracker-badge';
                         badge.setAttribute('data-token', emailToken); 
                         
                         badge.innerHTML = `
@@ -63,7 +63,7 @@ document.addEventListener('click', function(event) {
 
         // 1. ASLI JAADU: SERVER PAR DATA REGISTER KARNA
         if (token !== "Token nahi mila" && recipient !== "Unknown") {
-            fetch('https://supa-mail-tracker.onrender.com', {
+            fetch('https://tick-email-tracker.onrender.com', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ token: token, recipient: recipient })
@@ -74,10 +74,10 @@ document.addEventListener('click', function(event) {
         }
 
         // 2. INVISIBLE PIXEL INJECT KARNA
-        if (emailBody && !emailBody.querySelector('.supa-invisible-pixel')) {
+        if (emailBody && !emailBody.querySelector('.tick-invisible-pixel')) {
             const trackingPixel = document.createElement('img');
             trackingPixel.className = 'supa-invisible-pixel';
-            trackingPixel.src = `https://supa-mail-tracker.onrender.com/track?id=${token}`; 
+            trackingPixel.src = `https://tick-email-tracker.onrender.com/track?id=${token}`; 
             trackingPixel.width = 1;
             trackingPixel.height = 1;
             trackingPixel.style.display = 'none'; 

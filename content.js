@@ -63,7 +63,7 @@ document.addEventListener('click', function(event) {
 
         // 1. ASLI JAADU: SERVER PAR DATA REGISTER KARNA
         if (token !== "Token nahi mila" && recipient !== "Unknown") {
-            fetch('http://localhost:3000/register', {
+            fetch('https://supa-mail-tracker.onrender.com', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ token: token, recipient: recipient })

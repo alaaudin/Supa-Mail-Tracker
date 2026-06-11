@@ -2,9 +2,12 @@
   "manifest_version": 3,
   "name": "Tick Email Tracker",
   "version": "1.0",
-  "description": "Free Email Tracker!",
+  "description": "Production-ready email tracker SaaS!",
   "permissions": [
     "storage"
+  ],
+  "host_permissions": [
+    "https://tick-email-tracker.onrender.com/*"
   ],
   "background": {
     "service_worker": "background.js"

@@ -77,7 +77,7 @@ document.addEventListener('click', function(event) {
         if (emailBody && !emailBody.querySelector('.supa-invisible-pixel')) {
             const trackingPixel = document.createElement('img');
             trackingPixel.className = 'supa-invisible-pixel';
-            trackingPixel.src = `http://localhost:3000/track?id=${token}`; 
+            trackingPixel.src = `https://supa-mail-tracker.onrender.com/track?id=${token}`; 
             trackingPixel.width = 1;
             trackingPixel.height = 1;
             trackingPixel.style.display = 'none'; 

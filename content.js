@@ -19,7 +19,7 @@ const spy = new MutationObserver((mutations) => {
                         
                         badge.innerHTML = `
                             <div style="font-family: Arial, sans-serif; font-size: 12px; color: #2ecc71; margin-top: 15px; padding-top: 5px; border-top: 1px dashed #ccc; display: flex; align-items: center; gap: 5px;">
-                                <span>🟢</span> <b>Supa Mail Tracker:</b> Active | <span style="color: #7f8c8d; font-size: 10px;">ID: ${emailToken}</span>
+                                <span>🟢</span> <b>Tick Mail Tracker:</b> Active | <span style="color: #7f8c8d; font-size: 10px;">ID: ${emailToken}</span>
                             </div>
                         `;
                         emailBody.appendChild(badge);

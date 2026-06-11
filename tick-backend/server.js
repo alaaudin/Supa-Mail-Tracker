@@ -35,41 +35,31 @@ app.post('/register', async (req, res) => {
     res.json({ success: true });
 });
 
-// ==========================================
-// 2. TRACK ENDPOINT (SaaS Level Smart Filtering)
-// ==========================================
 app.get('/track', async (req, res) => {
     const tokenId = req.query.id;
     const userAgent = req.headers['user-agent'] || '';
 
-    console.log(`\n🔍 Tracking Request Aayi Hai...`);
+    console.log(`\n🔍 Tracking Request Hit! Token: ${tokenId}`);
     console.log(`👉 User-Agent: ${userAgent}`);
 
-    // CHECK: Agar request Gmail ke proxy se aayi hai, ya kisi aur device se hai
-    // Hum sirf tabhi DB update karenge jab yeh sender ka apna normal Chrome compose window na ho
+    // SMART CHECK: Agar sender khud Gmail client par bhej raha hai to ignore karein, 
+    // Lekin mobile ya Google proxy se aaye to fauran OPENED karein
     const isGmailProxy = userAgent.includes('GoogleImageProxy');
-    const isSentFolderHit = userAgent.includes('Chrome') && !isGmailProxy; 
-
-    // Filhal testing ke liye hum check thoda relaxed rakhte hain:
-    // Agar Gmail ke zariye khulega to automatic status badle ga
-    if (isGmailProxy || !userAgent.includes('Windows NT')) {
+    
+    // Agar mobile se hit aaye ya google proxy se, ya direct dunya ke kisi bhi browser se aaye (Windows desktop view ke ilawa)
+    if (isGmailProxy || !userAgent.includes('Windows NT 10.0')) {
+        console.log(`🚨 REAL OPEN DETECTED! Updating Supabase...`);
         
-        console.log(`🚨 REAL OPEN DETECTED! Status updating to OPENED...`);
-        
-        const { data, error } = await supabase
+        await supabase
             .from('tracked_emails')
             .update({ status: 'OPENED', opened_at: new Date().toISOString() })
             .eq('token', tokenId);
-
-        if (error) console.error("❌ DB Update Error:", error.message);
     } else {
-        console.log("⚠️ Sender ne khud hi email send/view kiya hai. Database update SKIP kar diya!");
+        console.log("⚠️ Sender open ignored.");
     }
 
-    // 1x1 Transparent Pixel Image wapis bhejna (Image hamesha bhejni hai)
     const pixelBase64 = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
     const imgBuffer = Buffer.from(pixelBase64, 'base64');
-
     res.writeHead(200, {
         'Content-Type': 'image/png',
         'Content-Length': imgBuffer.length,

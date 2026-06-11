@@ -68,6 +68,26 @@ app.get('/track', async (req, res) => {
     res.end(imgBuffer);
 });
 
+// ==========================================
+// 3. GET ALL EMAILS ENDPOINT (Sent Folder UI ke liye)
+// ==========================================
+app.get('/emails', async (req, res) => {
+    console.log(`\n📦 Extension ne saari emails ki list mangi hai...`);
+
+    // Database se saari emails uthana order ke sath
+    const { data, error } = await supabase
+        .from('tracked_emails')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+    if (error) {
+        console.error("❌ Data nikalne mein error:", error.message);
+        return res.status(500).json({ success: false, error: error.message });
+    }
+
+    res.json({ success: true, emails: data });
+});
+
 // Render apni marzi ka port deta hai, agar na mile to 3000 use hoga
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

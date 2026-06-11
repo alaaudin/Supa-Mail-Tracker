@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Supa Mail Tracker",
+  "name": "Tick Email Tracker",
   "version": "1.0",
   "description": "Free Email Tracker!",
   "permissions": [
@@ -17,6 +17,6 @@
     }
   ],
   "action": {
-    "default_title": "Supa Mail Tracker"
+    "default_title": "Tick Email Tracker"
   }
 }
